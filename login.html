@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="singinsec">
+                <div class="signinInner">
+                    <h1>Sign in</h1>
+                    <!-- <div class="signinIcon">
+                        <ul>
+                            <li><i class="fa-brands fa-github"></i></li>
+                            <li><i class="fa-brands fa-windows"></i></li>
+                            <li><i class="fa-brands fa-google"></i></li>
+                        </ul>
+                    </div> -->
+                    <p id="hiddenp">Sign up if you still don't have an account...</p>
+                    <p id="loginfailed" style="color:red;">Invalid Email or password</p>
+                     
+                    <div class="singininput">
+                        <input type="email" placeholder="Email" id="email">
+                        <input type="password" placeholder="Password" id="password">
+                    </div>
+                    <p class="forgotp"><a href="./index.html">Sign up</a></p>
+
+                    <button onclick="loginfnc()">Log In</button>
+                </div>
+            </div>
+            <div class="sideSec">
+                <div class="sideSecInnenr">
+                    <h2>Create, Account!</h2>
+                    <p>Sign up if you still don't have an account...</p>
+                    <button><a href="./index.html">SIGN UP</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign up</title>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="singinsec ">
+                <div class="signinInner">
+                    <h1>Sign Up</h1>
+                    <!-- <p>Or use your email for registration</p> -->
+                    <p id="loginfailed" style="color:red;">Email Already Exist</p>
+
+                    <div class="singininput">
+
+                        <!-- <input type="Text" placeholder="First Name" id="signupFirstName"> -->
+                        <input type="Text" placeholder=" Name" id="signupName">
+                        <input type="email" placeholder="Email" id="signupEmail">
+                        <input type="password" placeholder="Password" id="signupPassword">
+                    </div>
+                    <p class="forgotp"><a href="./login.html">LogIn</a></p>
+                    <!-- <p class="forgotp">Forgot your password?</p> -->
+                    <button onclick="signupfnc()">SIGN UP</button>
+                </div>
+            </div>
+            <div class="sideSec">
+                <div class="sideSecInnenr">
+                    <h2>WellCome Back</h2>
+                    <p>Sign in if you have already an account</p>
+                    <button><a href="./login.html">SIGN IN</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>
