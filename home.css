@@ -146,23 +146,44 @@ body{
 }
 
 .blogicons{
-    height: 40px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
     font-size: 25px;
-    color: #b1c1c794;
+    color: white;
     background-color: rgb(211, 240, 232);
     border: none;
+    border-radius: 50%;
 }
-
+.icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+.blogicons:hover{
+    box-shadow: -2px 3px 10px white;
+}
+.othericons{
+    display: flex;
+    gap: 50px;
+}
+.othericons button{
+    height: 50px;
+    padding: 10px;
+    width: auto;
+    border-radius: 8px;
+    border: 1px solid white;
+    color: #3ba8d3;
+}
 
 
 /* blogform section */
 .blogform{
     background-color: #b1c1c794;
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    position: absolute;
-    top: 0%;
+    position: fixed;
+    top: auto;
     left: 0%;
     z-index: 1;
     display: flex;

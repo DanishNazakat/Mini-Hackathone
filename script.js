@@ -1,11 +1,12 @@
 
 let usersdatabase = JSON.parse(localStorage.getItem('userInfo')) || [];
 let loginusers = JSON.parse(localStorage.getItem('loginUserData')) || [];
-// user Name 
-// let userNameNo = usersdatabase.length - 1;
-// console.log(userNameNo)
-// let userName = document.getElementById('userName').innerText = usersdatabase[userNameNo].name;
 
+
+
+
+let userblogs = JSON.parse(localStorage.getItem("blog")) || [];
+let editIndex = null;
 
 // SignUp function
 function signupfnc() {
@@ -25,21 +26,21 @@ function signupfnc() {
     }
     if (userExist === false) {
 
-        
-
-            let newUser = {
-                // signupFirstName,
-                signupName,
-                email: email,
-                password: password
-            }
-            usersdatabase.push(newUser);
-            localStorage.setItem('userInfo', JSON.stringify(usersdatabase));
-            window.location.href = ("login.html");
-            console.log(email.length + "=" + i)
 
 
-        
+        let newUser = {
+            // signupFirstName,
+            signupName,
+            email: email,
+            password: password
+        }
+        usersdatabase.push(newUser);
+        localStorage.setItem('userInfo', JSON.stringify(usersdatabase));
+        window.location.href = ("login.html");
+        console.log(email.length + "=" + i)
+
+
+
     }
 }
 
@@ -68,7 +69,7 @@ function loginfnc() {
             window.location.href = ("home.html");
             loginusers.push(loginuserInfo);
             localStorage.setItem("loginUserData", JSON.stringify(loginusers));
-            window.localStorage.setItem('currentUser' , JSON.stringify( usersdatabase[i]));
+            window.localStorage.setItem('currentUser', JSON.stringify(usersdatabase[i]));
             // console.log("current User" + window.localStorage.getItem(JSON.parse('currentUser')));
         }
     }
@@ -84,104 +85,139 @@ function loginfnc() {
 
 
 
-// home page
+const blogbtn = document.getElementById('blogbtn');
+const blogsContainer = document.getElementById('blogsContainer');
 
-// user info 
-
-function userName () {
-    let user = JSON.parse(window.localStorage.getItem('currentUser'));
-    console.log(user.signupFirstName);
-    let userName = document.getElementById('userName').innerText = user.signupName.charAt(0);
+// Get current user initial
+function userName() {
+    let user = JSON.parse(localStorage.getItem('currentUser'));
+    if(user){
+        document.getElementById('userName').innerText = user.signupName.charAt(0).toUpperCase();
+    }
 }
 userName();
- 
-// blog section
-function opendiv() {
-    let closeicon = document.getElementById('closeicon');
-    let blogform = document.getElementById('blogform');
-    blogform.style.display = "flex";
-    document.body.style.overflow = "hidden";
 
-    console.log("Event Fired")
+// Open/Close Blog Form
+function opendiv() {
+    document.getElementById('blogform').style.display = "flex";
+    document.body.style.overflow = "hidden";
 }
 function closediv() {
-    let closeicon = document.getElementById('closeicon');
-    let blogform = document.getElementById('blogform');
-    blogform.style.display = "none";
+    document.getElementById('blogform').style.display = "none";
     document.body.style.overflow = "scroll";
+    clearForm();
 }
 
+// Clear form
+function clearForm() {
+    document.getElementById('blogTittleinp').value = "";
+    document.getElementById('blogContent').value = "";
+    document.getElementById('file').value = "";
+    editIndex = null;
+    blogbtn.innerText = "Create Blog";
+}
 
-// blog Content
+// Create or Update Blog
+blogbtn.addEventListener('click', () => {
+    const title = document.getElementById('blogTittleinp').value;
+    const content = document.getElementById('blogContent').value;
+    const img = document.getElementById('file').value;
 
-let userblogs = JSON.parse(localStorage.getItem("blog")) || [];
-function createBlog() {
-    let blogTittle = document.getElementById('blogTittleinp').value;
-    let blogContent = document.getElementById('blogContent').value;
-    let imgUrl = document.getElementById('file').value;
- 
-
-    let userblog = {
-        blogTittle,
-        blogContent,
-        imgUrl
+    if(editIndex === null){
+        // Create new blog
+        userblogs.push({title, content, img, likes:0, liked:false});
+    } else {
+        // Update existing blog
+        userblogs[editIndex].title = title;
+        userblogs[editIndex].content = content;
+        userblogs[editIndex].img = img;
     }
-    userblogs.push(userblog);
+
     localStorage.setItem("blog", JSON.stringify(userblogs));
-    console.log(userblog)
+    renderBlogs();
+    closediv();
+});
 
-    // let blogtittleout = document.getElementById('blogtittle').innerText = blogTittle;
-    // let blogContentout = document.getElementById('blogdescription')
-    //     .innerText = blogContent;
-    // let authorNameout = document.getElementById('authorName').innerText = authorName;
-    blogform.style.display = "none";
-    document.body.style.overflowY = "scroll";
+// Render Blogs
+function renderBlogs() {
+    blogsContainer.innerHTML = ""; // Clear existing blogs
 
+    userblogs.forEach((blog, index) => {
+        const blogSection = document.createElement('div');
+        blogSection.className = "blogSeciton";
 
-    let main = document.querySelector(".main");
-    let blogSeciton = document.createElement('div');
-    blogSeciton.setAttribute("class", "blogSeciton");
+        const blogTitle = document.createElement('h1');
+        blogTitle.innerText = blog.title;
 
+        const blogContent = document.createElement('p');
+        blogContent.innerText = blog.content;
 
-    let blogtittle = document.createElement('h1');
-    blogtittle.setAttribute("id", "blogtittle");
-    blogtittle.innerText = blogTittle;
+        const blogImg = document.createElement('img');
+        blogImg.src = blog.img;
 
+        const iconsDiv = document.createElement('div');
+        iconsDiv.className = "icons";
 
-    let blogdescription = document.createElement("p");
-    blogdescription.setAttribute("id", "blogdescription")
-    blogdescription.innerText = blogContent;
+        // Like
+        const likeBtn = document.createElement('div');
+        likeBtn.className = "blogicons";
+        likeBtn.innerHTML = `<i class="${blog.liked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>`;
+        const likeCounter = document.createElement('span');
+        likeCounter.innerText = ` ${blog.likes}`;
 
-    let img = document.createElement('img');
-    img.setAttribute('id', "blogimg")
-    img.setAttribute("src",`${imgUrl}`);
+        likeBtn.addEventListener('click', () => {
+            if(blog.liked){
+                blog.likes--;
+            } else {
+                blog.likes++;
+            }
+            blog.liked = !blog.liked;
+            localStorage.setItem("blog", JSON.stringify(userblogs));
+            renderBlogs();
+        });
 
-    
-    let icons = document.createElement('div');
+        // Edit
+        const editBtn = document.createElement('button');
+        editBtn.className = "blogicons";
+        editBtn.innerText = "Edit";
+        editBtn.addEventListener('click', () => {
+            editIndex = index;
+            document.getElementById('blogTittleinp').value = blog.title;
+            document.getElementById('blogContent').value = blog.content;
+            document.getElementById('file').value = blog.img;
+            blogbtn.innerText = "Update Blog";
+            opendiv();
+        });
 
-    let like = document.createElement('button');
-    like.setAttribute("class", "blogicons")
-    like.innerHTML = '<i class="fa-regular fa-heart"></i>';
+        // Delete
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = "blogicons";
+        deleteBtn.innerText = "Delete";
+        deleteBtn.addEventListener('click', () => {
+            userblogs.splice(index, 1);
+            localStorage.setItem("blog", JSON.stringify(userblogs));
+            renderBlogs();
+        });
 
+        const otherIcons = document.createElement('div');
+        otherIcons.className = "othericons";
+        otherIcons.appendChild(editBtn);
+        otherIcons.appendChild(deleteBtn);
 
+        iconsDiv.appendChild(likeBtn);
+        iconsDiv.appendChild(likeCounter);
+        iconsDiv.appendChild(otherIcons);
 
-    
-    let puslishDate = document.createElement('div');
-    puslishDate.setAttribute("id", "puslishDate");
-    let D = new Date();
-    let day = D.getDate();
-    let month = D.getMonth();
-    let year = D.getFullYear();
-    puslishDate.innerText = `${day} - ${month + 1} - ${year}`;
-    // blogSeciton.innerText = "Asad";
-    // blogSeciton.style.color = "Black";
-    main.append(blogSeciton);
-    console.log(blogSeciton);
-    blogSeciton.append(blogtittle);
-    blogSeciton.append(blogdescription);
-    blogSeciton.append(img)
-    blogSeciton.append(icons);
-    icons.appendChild(like)
-    // main.appendChild(blogdescription)
+        // Date
+        const dateDiv = document.createElement('div');
+        const D = new Date();
+        dateDiv.id = "puslishDate";
+        dateDiv.innerText = `${D.getDate()} - ${D.getMonth() + 1} - ${D.getFullYear()}`;
+
+        blogSection.append(blogTitle, blogContent, blogImg, iconsDiv, dateDiv);
+        blogsContainer.appendChild(blogSection);
+    });
 }
-// let blogSeciton = document.querySelector('.blogSeciton');
+
+// Render blogs on page load
+renderBlogs();

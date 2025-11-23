@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,42 +9,42 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
+
+    <!-- Blog Form Popup -->
     <div class="blogform" id="blogform">
         <div class="blogInfo">
             <div class="blogupper">
                 <h2>Create Your Post</h2>
                 <button id="closeicon" onclick="closediv()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <input type="text" placeholder="Tittle" id="blogTittleinp">
-            <textarea name="" id="blogContent" placeholder="Blog Content"></textarea>
+            <input type="text" placeholder="Title" id="blogTittleinp">
+            <textarea id="blogContent" placeholder="Blog Content"></textarea>
             <input type="text" id="file" placeholder="Image URL Optional">
-            <button id="blogbtn" onclick="createBlog()">Create Blog</button>
+            <button id="blogbtn">Create Blog</button>
         </div>
     </div>
+
     <div class="main">
         <div class="header">
-            <div class="logosection">BlOGS</div>
+            <div class="logosection">BLOGS</div>
             <div class="headerbuttons">
                 <div class="profile">
                     <div class="profileIcon">
                         <p id="userName"></p>
                     </div>
                 </div>
-                <button><a href="./index.html"> Sing Out </a></button>
+                <button><a href="./index.html">Sign Out</a></button>
             </div>
         </div>
+
         <div class="createblogbtn">
             <button id="createBlog" onclick="opendiv()">Create Post</button>
         </div>
-        <!-- <div class="blogSeciton">
-        </div> -->
-        <div id="userInfo">
 
-        </div>
+        <div id="blogsContainer"></div>
+    </div>
 
-        <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
